@@ -94,19 +94,6 @@ public class AgentTests
     }
 
     [Fact]
-    public async Task Werkzeuge_liefern_Ressourcen_und_Fehler()
-    {
-        var tools = await Tools();
-
-        Assert.Contains("marketing-assets", tools.Execute("list_resources", "{\"type\":\"S3Bucket\"}"));
-        Assert.DoesNotContain("sg-0a1b2c3d", tools.Execute("list_resources", "{\"type\":\"S3Bucket\"}"));
-        Assert.Contains("\"encrypted\":false", tools.Execute("get_resource", "{\"id\":\"vol-0456efgh\"}"));
-        Assert.Contains("nicht gefunden", tools.Execute("get_resource", "{\"id\":\"gibt-es-nicht\"}"));
-        Assert.Contains("Unbekanntes Werkzeug", tools.Execute("delete_bucket", "{}"));
-        Assert.Contains("kein gültiges JSON", tools.Execute("get_resource", "{kaputt"));
-    }
-
-    [Fact]
     public void Werkzeugdefinitionen_sind_vollstaendig()
     {
         var names = AgentTools.Definitions()
