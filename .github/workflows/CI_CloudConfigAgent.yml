@@ -1,4 +1,4 @@
-name: CI
+name: CI_CloudConfigAgent
 
 on:
   push:
@@ -7,7 +7,25 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: .NET 8 einrichten
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: CLI und Lambda bauen
+        run: |
+          dotnet build src/CloudConfigAgent.Cli/CloudConfigAgent.Cli.csproj -c Release
+          dotnet build src/CloudConfigAgent.Lambda/CloudConfigAgent.Lambda.csproj -c Release
+
+      - name: Beispielkonto prüfen (ohne Sprachmodell)
+        run: dotnet run --project src/CloudConfigAgent.Cli -c Release -- --snapshot samples/snapshot.json || test $? -eq 2
+
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,11 +37,3 @@ jobs:
 
       - name: Tests ausführen
         run: dotnet test tests/CloudConfigAgent.Tests/CloudConfigAgent.Tests.csproj -c Release --logger "console;verbosity=normal"
-
-      - name: CLI und Lambda bauen
-        run: |
-          dotnet build src/CloudConfigAgent.Cli/CloudConfigAgent.Cli.csproj -c Release
-          dotnet build src/CloudConfigAgent.Lambda/CloudConfigAgent.Lambda.csproj -c Release
-
-      - name: Beispielkonto prüfen (ohne Sprachmodell)
-        run: dotnet run --project src/CloudConfigAgent.Cli -c Release -- --snapshot samples/snapshot.json || test $? -eq 2
