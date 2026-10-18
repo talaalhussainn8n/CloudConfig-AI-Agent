@@ -11,11 +11,6 @@ using SecurityGroup = CloudConfigAgent.Core.Model.SecurityGroup;
 
 namespace CloudConfigAgent.Core.Providers;
 
-public interface ISnapshotProvider
-{
-    Task<ResourceSnapshot> GetSnapshotAsync(CancellationToken ct = default);
-}
-
 /// <summary>Lädt eine gespeicherte Momentaufnahme, z. B. für Demos, Tests oder Prüfungen ohne Kontozugriff.</summary>
 public sealed class JsonSnapshotProvider : ISnapshotProvider
 {

@@ -13,6 +13,8 @@ public sealed class AgentTools
 {
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
 
+    private static string Error(string message) => JsonSerializer.Serialize(new { error = message }, Json);
+
     private readonly ResourceSnapshot _snapshot;
     private readonly ComplianceEngine _engine;
     private IReadOnlyList<Finding>? _findings;
@@ -109,6 +111,4 @@ public sealed class AgentTools
 
         return resource is null ? Error($"Ressource {id} nicht gefunden.") : JsonSerializer.Serialize(resource, resource.GetType(), Json);
     }
-
-    private static string Error(string message) => JsonSerializer.Serialize(new { error = message }, Json);
 }

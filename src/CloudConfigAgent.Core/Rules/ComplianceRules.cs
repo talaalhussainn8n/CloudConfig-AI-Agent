@@ -2,13 +2,6 @@ using CloudConfigAgent.Core.Model;
 
 namespace CloudConfigAgent.Core.Rules;
 
-public interface IComplianceRule
-{
-    string Id { get; }
-    string Description { get; }
-    IEnumerable<Finding> Evaluate(ResourceSnapshot snapshot);
-}
-
 /// <summary>S3-Buckets ohne "Block Public Access" können versehentlich öffentlich werden.</summary>
 public sealed class S3PublicAccessRule : IComplianceRule
 {
