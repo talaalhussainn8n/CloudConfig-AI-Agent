@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../tests/CloudConfigAgent.Tests/CloudConfigAgent.Tests.csproj" />
+  <Project Path="CloudConfigAgent.Cli/CloudConfigAgent.Cli.csproj" />
+  <Project Path="CloudConfigAgent.Core/CloudConfigAgent.Core.csproj" />
+  <Project Path="CloudConfigAgent.Lambda/CloudConfigAgent.Lambda.csproj" />
+</Solution>

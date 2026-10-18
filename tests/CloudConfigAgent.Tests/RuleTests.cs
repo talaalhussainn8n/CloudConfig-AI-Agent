@@ -1,6 +1,7 @@
 using CloudConfigAgent.Core.Model;
 using CloudConfigAgent.Core.Providers;
 using CloudConfigAgent.Core.Rules;
+using Xunit;
 
 namespace CloudConfigAgent.Tests;
 
