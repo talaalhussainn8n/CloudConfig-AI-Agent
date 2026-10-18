@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Tägliche Prüfung der AWS-Konfiguration durch den CloudConfig-Agenten (nur Leserechte).
+
+Resources:
+  ComplianceCheckFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: dotnet8
+      Handler: CloudConfigAgent.Lambda::CloudConfigAgent.Lambda.Function::FunctionHandler
+      CodeUri: src/CloudConfigAgent.Lambda/
+      MemorySize: 512
+      Timeout: 120
+      Policies:
+        - SecurityAudit
+      Events:
+        Daily:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 6 * * ? *)

@@ -1,0 +1,37 @@
+{
+  "account": "123456789012 (Demo)",
+  "region": "eu-central-1",
+  "buckets": [
+    { "name": "firma-backups", "blockPublicAccess": true, "encrypted": true, "versioning": true },
+    { "name": "marketing-assets", "blockPublicAccess": false, "encrypted": false, "versioning": false },
+    { "name": "app-logs", "blockPublicAccess": true, "encrypted": true, "versioning": false }
+  ],
+  "securityGroups": [
+    {
+      "id": "sg-0a1b2c3d",
+      "name": "web-server",
+      "ingress": [
+        { "protocol": "tcp", "fromPort": 443, "toPort": 443, "cidr": "0.0.0.0/0" },
+        { "protocol": "tcp", "fromPort": 22, "toPort": 22, "cidr": "0.0.0.0/0" }
+      ]
+    },
+    {
+      "id": "sg-0e5f6a7b",
+      "name": "datenbank",
+      "ingress": [
+        { "protocol": "tcp", "fromPort": 5432, "toPort": 5432, "cidr": "10.0.0.0/16" }
+      ]
+    },
+    {
+      "id": "sg-0c8d9e0f",
+      "name": "test-alles-offen",
+      "ingress": [
+        { "protocol": "-1", "fromPort": 0, "toPort": 0, "cidr": "0.0.0.0/0" }
+      ]
+    }
+  ],
+  "volumes": [
+    { "id": "vol-0123abcd", "encrypted": true, "attachedTo": "i-0aa11bb22" },
+    { "id": "vol-0456efgh", "encrypted": false, "attachedTo": null }
+  ]
+}
